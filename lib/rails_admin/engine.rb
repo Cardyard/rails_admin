@@ -50,6 +50,11 @@ module RailsAdmin
         app.config.assets.paths << RailsAdmin::Engine.root.join('src')
         require 'rails_admin/support/es_module_processor'
         Sprockets.register_bundle_processor 'application/javascript', RailsAdmin::Support::ESModuleProcessor
+
+        # Mike 19 June 25 for Cardyard ra3.3cy1
+        self.importmap = Importmap::Map.new.draw(app.root.join('config/importmap.rails_admin.rb'))
+        # End of change
+
       when :importmap
         self.importmap = Importmap::Map.new.draw(app.root.join('config/importmap.rails_admin.rb'))
       end

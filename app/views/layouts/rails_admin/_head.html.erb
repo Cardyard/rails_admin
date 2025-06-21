@@ -13,6 +13,14 @@
     <%= stylesheet_link_tag "rails_admin/application.css", media: :all, data: {'turbo-track': 'reload'} %>
     <%= javascript_include_tag "rails_admin/application.js", defer: true, data: {'turbo-track': 'reload'} %>
   <% end %>
+
+  <%# Mike 19 Jun 25 for Cardyard ra3.3cy1 %>
+  <% RailsAdmin::Engine.importmap = Importmap::Map.new.draw(Rails.root.join('config/importmap.rails_admin.rb')) if Rails.env.development? %>
+  <%= javascript_inline_importmap_tag(RailsAdmin::Engine.importmap.to_json(resolver: self)) %>
+  <%= javascript_importmap_module_preload_tags(RailsAdmin::Engine.importmap) %>
+  <%= javascript_import_module_tag 'rails_admin' %>
+  <%# end for Cardyard ra3.3cy1 %>
+
 <% when :vite %>
   <%= vite_javascript_tag "rails_admin", defer: true, data: {'turbo-track': 'reload'} %>
 <% when :webpack %>
